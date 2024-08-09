@@ -1,0 +1,40 @@
+.button {
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+  border: 1px solid transparent;
+  border-radius: 9999px;
+  cursor: pointer;
+  background-color: #429dff;
+  color: #fff;
+  transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+}
+
+.medium {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+}
+
+.large {
+  padding: 0.75rem 1.5rem;
+  font-size: 1.25rem;
+}
+
+.small {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+}
+
+.full {
+  width: 100%;
+}
+
+
+
+.button:hover {
+  background-color: #1c7ed6;
+}
+
+.button:active {
+  background-color: #0b6ab7;
+}
