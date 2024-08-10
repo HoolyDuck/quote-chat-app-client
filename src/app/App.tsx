@@ -16,7 +16,9 @@ function App() {
 
   return (
     <>
-      {isLoading && <div>Loading...</div>}
+      {
+        //isLoading && <div>Loading...</div>
+      }
       <Outlet />
     </>
   );
