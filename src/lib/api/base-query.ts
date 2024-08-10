@@ -1,4 +1,8 @@
-import { fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import {
+  BaseQueryApi,
+  FetchArgs,
+  fetchBaseQuery,
+} from "@reduxjs/toolkit/query/react";
 import { resetUser } from "../store/slices/user.slice";
 
 const baseQuery = fetchBaseQuery({
@@ -6,7 +10,11 @@ const baseQuery = fetchBaseQuery({
   credentials: "include",
 });
 
-const baseQueryWithReauth = async (args: any, api: any, extraOptions: any) => {
+const baseQueryWithReauth: typeof baseQuery = async (
+  args: string | FetchArgs,
+  api: BaseQueryApi,
+  extraOptions: {}
+) => {
   const result = await baseQuery(args, api, extraOptions);
   if (result.error?.status === 403) {
     // post refresh token
