@@ -1,0 +1,21 @@
+.side_header {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid var(--border-color);
+  gap: 1rem;
+  padding: 1rem;
+  border: 1px solid var(--border-color);
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 1rem;
+}
+
+.avatar_wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
