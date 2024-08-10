@@ -1,6 +1,7 @@
 import { Avatar } from "@/common/components/Avatar/Avatar";
 import styles from "./styles.module.css";
 
+
 type ChatCardProps = {
   avatarSrc?: string;
   name?: string;
@@ -17,7 +18,7 @@ export const ChatCard: React.FC<ChatCardProps> = ({
   return (
     <div className={styles.chat_card}>
       <Avatar
-        src={avatarSrc || "https://picsum.photos/200"}
+        src={avatarSrc}
         alt={`${name} avatar`}
       />
       <div className={styles.chat_info}>

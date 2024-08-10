@@ -3,15 +3,29 @@ import styles from "./styles.module.css";
 import { Button } from "@/common/components/Button/Button";
 import { SearchIcon } from "@/assets/icons/SearchIcon";
 import { Avatar } from "@/common/components/Avatar/Avatar";
-import { useAppSelector } from "@/lib/store/hooks";
+import { useAppDispatch, useAppSelector } from "@/lib/store/hooks";
+import { resetUser } from "@/lib/store/slices/user.slice";
+import { useNavigate } from "react-router-dom";
 
 export const SidebarHeader = () => {
   const { user } = useAppSelector((state) => state.user);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    dispatch(resetUser());
+    navigate("/login");
+  };
+
+  const handleLogin = () => {
+    navigate("/login");
+  };
 
   const logInOrOutButton = user ? (
     <Button
       size="small"
       variant="secondary"
+      onClick={handleLogout}
     >
       Log out
     </Button>
@@ -19,6 +33,7 @@ export const SidebarHeader = () => {
     <Button
       size="small"
       variant="primary"
+      onClick={handleLogin}
     >
       Log in
     </Button>
