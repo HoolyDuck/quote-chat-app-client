@@ -12,7 +12,12 @@ export const SidebarHeader = () => {
           src="https://picsum.photos/200"
           alt="avatar"
         />
-        <Button size="small">Login</Button>
+        <Button
+          size="small"
+          variant="secondary"
+        >
+          Log in
+        </Button>
       </div>
       <Input
         placeholder="Search for chats"

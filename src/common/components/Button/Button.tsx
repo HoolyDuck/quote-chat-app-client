@@ -6,16 +6,23 @@ type Properties = ButtonHTMLAttributes<HTMLButtonElement> & {
   children?: React.ReactNode;
   size?: "small" | "medium" | "large";
   width?: "full" | "auto";
+  variant?: "primary" | "secondary";
 };
 
 export const Button = ({
   size = "medium",
   width = "auto",
+  variant = "primary",
   ...props
 }: Properties) => {
   return (
     <button
-      className={clsx(styles.button, styles[size], styles[width])}
+      className={clsx(
+        styles.button,
+        styles[size],
+        styles[width],
+        styles[variant]
+      )}
       {...props}
     />
   );

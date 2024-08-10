@@ -29,12 +29,24 @@
   width: 100%;
 }
 
-
-
 .button:hover {
   background-color: #1c7ed6;
 }
 
 .button:active {
   background-color: #0b6ab7;
+}
+
+.secondary {
+  background-color: #ffffff;
+  color: #379bff;
+  border: 1px solid var(--border-color);
+}
+
+.secondary:hover {
+  background-color: #f2f2f2;
+}
+
+.secondary:active {
+  background-color: #e6e6e6;
 }
