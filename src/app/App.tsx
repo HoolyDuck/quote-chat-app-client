@@ -7,14 +7,14 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function App() {
-  const { data, isLoading } = useGetProfileQuery();
+  const { data } = useGetProfileQuery();
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (data) {
       dispatch(setUser(data));
     }
-  }, [data]);
+  }, [data, dispatch]);
 
   return (
     <>

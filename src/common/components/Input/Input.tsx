@@ -8,7 +8,7 @@ type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
 };
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ className, leftIcon, rightIcon, name, ...props }: InputProps, ref) => {
+  ({ className, leftIcon, rightIcon, ...props }: InputProps, ref) => {
     return (
       <div className={styles.input_wrapper}>
         <span className={clsx(styles.icon, styles.left_icon)}>{leftIcon}</span>

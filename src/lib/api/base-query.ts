@@ -13,7 +13,7 @@ const baseQuery = fetchBaseQuery({
 const baseQueryWithReauth: typeof baseQuery = async (
   args: string | FetchArgs,
   api: BaseQueryApi,
-  extraOptions: {}
+  extraOptions
 ) => {
   const result = await baseQuery(args, api, extraOptions);
   if (result.error?.status === 403) {
