@@ -13,16 +13,20 @@ export const Button = ({
   size = "medium",
   width = "auto",
   variant = "primary",
+  className,
   ...props
 }: Properties) => {
+  const buttonClassName = clsx(
+    styles.button,
+    styles[size],
+    styles[width],
+    styles[variant],
+    className
+  );
+
   return (
     <button
-      className={clsx(
-        styles.button,
-        styles[size],
-        styles[width],
-        styles[variant]
-      )}
+      className={buttonClassName}
       {...props}
     />
   );
