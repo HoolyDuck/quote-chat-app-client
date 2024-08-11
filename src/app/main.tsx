@@ -6,6 +6,7 @@ import { RouterProvider } from "../lib/router/RouterProvider.tsx";
 import { LoginPage } from "@/pages/LoginPage/LoginPage.tsx";
 import { Provider } from "react-redux";
 import { store } from "@/lib/store/store.ts";
+import { ChatPage } from "@/pages/ChatPage/ChatPage.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -20,6 +21,10 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
                 path: "/login",
                 element: <LoginPage />,
               },
+              {
+                path: "/",
+                element: <ChatPage />,
+              }
             ],
           },
         ]}

@@ -1,0 +1,17 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 1.5rem;
+}
+
+.label {
+  position: relative;
+}
+
+.error {
+  color: red;
+  font-size: 0.8rem;
+  position: absolute;
+  top: 100%;
+}

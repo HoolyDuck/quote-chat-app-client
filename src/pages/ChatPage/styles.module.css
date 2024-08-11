@@ -1,0 +1,6 @@
+.chat_page {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    flex: 1;
+    width: 100%;
+}
