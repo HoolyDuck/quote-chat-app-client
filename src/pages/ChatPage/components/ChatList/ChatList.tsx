@@ -1,15 +1,24 @@
-import { useGetChatsQuery } from "@/lib/api/chat/chatApi";
+import {
+  useCreateChatMutation,
+  useGetChatsQuery,
+} from "@/lib/api/chat/chatApi";
 import { ChatCard } from "../ChatCard/ChatCard";
 import styles from "./styles.module.css";
 import { Button } from "@/common/components/Button/Button";
 import { Modal } from "@/common/components/Modal/Modal";
 import { useState } from "react";
 import { CreateChatForm } from "../CreateChatForm/CreateChatForm";
+import { NavLink } from "react-router-dom";
+import { CreateChatDto } from "@/common/types/chat/create-chat.dto";
+import { toast } from "react-toastify";
+import { useAppSelector } from "@/lib/store/hooks";
 
 export const ChatList = () => {
-  const { data, isLoading } = useGetChatsQuery();
+  const { name } = useAppSelector((state) => state.chatSearch);
+  const { data, isLoading } = useGetChatsQuery({ name });
 
   const [isCreateChatModalOpen, setIsCreateChatModalOpen] = useState(false);
+  const [createChat] = useCreateChatMutation();
 
   const openCreateChatModal = () => {
     setIsCreateChatModalOpen(true);
@@ -17,6 +26,15 @@ export const ChatList = () => {
 
   const closeCreateChatModal = () => {
     setIsCreateChatModalOpen(false);
+  };
+
+  const onSubmit = async (data: CreateChatDto) => {
+    try {
+      await createChat(data).unwrap();
+      toast.success("Chat created successfully");
+    } catch (error) {
+      toast.error("Failed to create chat");
+    }
   };
 
   return (
@@ -37,12 +55,18 @@ export const ChatList = () => {
             <p>Loading...</p>
           ) : (
             data?.chats?.map((chat) => (
-              <ChatCard
+              <NavLink
+                to={`/chat/${chat._id}`}
                 key={chat._id}
-                name={`${chat.firstName} ${chat.lastName}`}
-                lastMessage={chat.messages[0]}
-                lastMessageTime={new Date().toLocaleTimeString()}
-              />
+              >
+                <ChatCard
+                  name={`${chat.firstName} ${chat.lastName}`}
+                  lastMessage={chat.messages[chat.messages.length - 1]?.content}
+                  lastMessageTime={
+                    chat.messages[chat.messages.length - 1]?.createdAt
+                  }
+                />
+              </NavLink>
             ))
           )}
         </div>
@@ -52,7 +76,10 @@ export const ChatList = () => {
         title="New Chat"
         onClose={closeCreateChatModal}
       >
-        <CreateChatForm onSuccessfulSubmit={closeCreateChatModal} />
+        <CreateChatForm
+          onSubmit={onSubmit}
+          closeModal={closeCreateChatModal}
+        />
       </Modal>
     </>
   );

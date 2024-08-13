@@ -1,0 +1,14 @@
+.select_chat {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.select_chat p {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #929292;
+}

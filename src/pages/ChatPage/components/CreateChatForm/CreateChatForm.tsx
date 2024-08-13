@@ -1,20 +1,20 @@
 import { Controller, useForm } from "react-hook-form";
 import styles from "./styles.module.css";
 import { CreateChatDto } from "@/common/types/chat/create-chat.dto";
-import { chatApi, useCreateChatMutation } from "@/lib/api/chat/chatApi";
 import { Input } from "@/common/components/Input/Input";
-import { toast } from "react-toastify";
 import { Button } from "@/common/components/Button/Button";
-import { useAppDispatch } from "@/lib/store/hooks";
 
 type CreateChatFormProps = {
-  onSuccessfulSubmit: () => void;
+  onSubmit: (data: CreateChatDto) => void;
+  closeModal?: () => void;
+  buttonText?: string;
 };
 
-export const CreateChatForm = ({ onSuccessfulSubmit }: CreateChatFormProps) => {
-  const [createChat] = useCreateChatMutation();
-  const dispatch = useAppDispatch();
-
+export const CreateChatForm = ({
+  onSubmit,
+  closeModal,
+  buttonText,
+}: CreateChatFormProps) => {
   const {
     control,
     handleSubmit,
@@ -27,27 +27,17 @@ export const CreateChatForm = ({ onSuccessfulSubmit }: CreateChatFormProps) => {
     },
   });
 
-  const onSubmit = async (data: CreateChatDto) => {
-    try {
-      const result = await createChat(data).unwrap();
-      dispatch(
-        chatApi.util.updateQueryData("getChats", undefined, (draft) => {
-          draft?.chats?.push(result);
-        })
-      );
+  const handleOnSubmit = async (data: CreateChatDto) => {
+    onSubmit?.(data);
+    reset();
 
-      toast.success("Chat created successfully");
-      reset();
-      onSuccessfulSubmit();
-    } catch (error) {
-      toast.error("Failed to create chat");
-    }
+    closeModal?.();
   };
 
   return (
     <form
       className={styles.form}
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleSubmit(handleOnSubmit)}
     >
       <label className={styles.label}>
         <span>First Name</span>
@@ -75,7 +65,7 @@ export const CreateChatForm = ({ onSuccessfulSubmit }: CreateChatFormProps) => {
         type="submit"
         width="full"
       >
-        Create Chat
+        {buttonText || "Create Chat"}
       </Button>
     </form>
   );

@@ -1,6 +1,7 @@
 import { Container } from "@/common/components/Container/Container";
 import styles from "./styles.module.css";
 import { ChatSidebar } from "./components/ChatSidebar/ChatSidebar";
+import { Outlet } from "react-router-dom";
 
 export const ChatPage = () => {
   return (
@@ -8,8 +9,7 @@ export const ChatPage = () => {
       <div className={styles.chat_page}>
         <ChatSidebar />
         <div className={styles.main}>
-          <div className={styles.header}>Chat</div>
-          <div className={styles.chat_box}>Messages</div>
+          <Outlet />
         </div>
       </div>
     </Container>
