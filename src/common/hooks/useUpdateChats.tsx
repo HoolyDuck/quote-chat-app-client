@@ -43,5 +43,32 @@ export const useUpdateChats = () => {
     );
   };
 
-  return { addMessageToChat, deleteFromChatList, addToChatList };
+  const updateChatDetails = (chat: Chat) => {
+    dispatch(
+      chatApi.util.updateQueryData("getChats", undefined, (draft) => {
+        const chatIndex = draft?.chats.findIndex(
+          (item) => item._id === chat._id
+        );
+        if (chatIndex !== -1) {
+          draft?.chats.splice(chatIndex, 1, chat);
+        }
+      })
+    );
+
+    dispatch(
+      chatApi.util.updateQueryData("getChat", chat._id, (draft) => {
+        if (draft) {
+          draft.firstName = chat.firstName;
+          draft.lastName = chat.lastName;
+        }
+      })
+    );
+  };
+
+  return {
+    addMessageToChat,
+    deleteFromChatList,
+    addToChatList,
+    updateChatDetails,
+  };
 };

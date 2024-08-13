@@ -7,11 +7,13 @@ import { Button } from "@/common/components/Button/Button";
 type CreateChatFormProps = {
   onSubmit: (data: CreateChatDto) => void;
   closeModal?: () => void;
+  buttonText?: string;
 };
 
 export const CreateChatForm = ({
   onSubmit,
   closeModal,
+  buttonText,
 }: CreateChatFormProps) => {
   const {
     control,
@@ -63,7 +65,7 @@ export const CreateChatForm = ({
         type="submit"
         width="full"
       >
-        Create Chat
+        {buttonText || "Create Chat"}
       </Button>
     </form>
   );
