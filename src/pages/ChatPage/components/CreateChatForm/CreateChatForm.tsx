@@ -1,11 +1,11 @@
 import { Controller, useForm } from "react-hook-form";
 import styles from "./styles.module.css";
 import { CreateChatDto } from "@/common/types/chat/create-chat.dto";
-import { chatApi, useCreateChatMutation } from "@/lib/api/chat/chatApi";
+import { useCreateChatMutation } from "@/lib/api/chat/chatApi";
 import { Input } from "@/common/components/Input/Input";
 import { toast } from "react-toastify";
 import { Button } from "@/common/components/Button/Button";
-import { useAppDispatch } from "@/lib/store/hooks";
+import { useUpdateChats } from "@/common/hooks/useUpdateChats";
 
 type CreateChatFormProps = {
   onSuccessfulSubmit: () => void;
@@ -13,7 +13,7 @@ type CreateChatFormProps = {
 
 export const CreateChatForm = ({ onSuccessfulSubmit }: CreateChatFormProps) => {
   const [createChat] = useCreateChatMutation();
-  const dispatch = useAppDispatch();
+  const { addToChatList } = useUpdateChats();
 
   const {
     control,
@@ -30,11 +30,7 @@ export const CreateChatForm = ({ onSuccessfulSubmit }: CreateChatFormProps) => {
   const onSubmit = async (data: CreateChatDto) => {
     try {
       const result = await createChat(data).unwrap();
-      dispatch(
-        chatApi.util.updateQueryData("getChats", undefined, (draft) => {
-          draft?.chats?.push(result);
-        })
-      );
+      addToChatList(result);
 
       toast.success("Chat created successfully");
       reset();

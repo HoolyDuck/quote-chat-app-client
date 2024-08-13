@@ -3,8 +3,8 @@ import styles from "./styles.module.css";
 
 import { Button } from "@/common/components/Button/Button";
 import { useNavigate, useParams } from "react-router-dom";
-import { chatApi, useDeleteChatMutation } from "@/lib/api/chat/chatApi";
-import { useAppDispatch } from "@/lib/store/hooks";
+import { useDeleteChatMutation } from "@/lib/api/chat/chatApi";
+import { useUpdateChats } from "@/common/hooks/useUpdateChats";
 
 type ChatHeaderProps = {
   firstName?: string;
@@ -14,22 +14,15 @@ type ChatHeaderProps = {
 export const ChatHeader = ({ firstName, lastName }: ChatHeaderProps) => {
   const { chatId } = useParams<{ chatId: string }>();
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
 
   const [deleteChat] = useDeleteChatMutation();
+  const { deleteFromChatList } = useUpdateChats();
 
   const handleDeleteChat = async () => {
     if (!chatId) return;
 
     await deleteChat(chatId);
-    dispatch(
-      chatApi.util.updateQueryData("getChats", undefined, (draft) => {
-        const chatIndex = draft?.chats.findIndex((chat) => chat._id === chatId);
-        if (chatIndex !== -1) {
-          draft?.chats.splice(chatIndex, 1);
-        }
-      })
-    );
+    deleteFromChatList(chatId);
 
     navigate("/chat");
   };
