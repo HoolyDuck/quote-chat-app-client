@@ -1,4 +1,7 @@
-import { useGetChatsQuery } from "@/lib/api/chat/chatApi";
+import {
+  useCreateChatMutation,
+  useGetChatsQuery,
+} from "@/lib/api/chat/chatApi";
 import { ChatCard } from "../ChatCard/ChatCard";
 import styles from "./styles.module.css";
 import { Button } from "@/common/components/Button/Button";
@@ -6,11 +9,16 @@ import { Modal } from "@/common/components/Modal/Modal";
 import { useState } from "react";
 import { CreateChatForm } from "../CreateChatForm/CreateChatForm";
 import { NavLink } from "react-router-dom";
+import { CreateChatDto } from "@/common/types/chat/create-chat.dto";
+import { useUpdateChats } from "@/common/hooks/useUpdateChats";
+import { toast } from "react-toastify";
 
 export const ChatList = () => {
   const { data, isLoading } = useGetChatsQuery();
 
   const [isCreateChatModalOpen, setIsCreateChatModalOpen] = useState(false);
+  const [createChat] = useCreateChatMutation();
+  const { addToChatList } = useUpdateChats();
 
   const openCreateChatModal = () => {
     setIsCreateChatModalOpen(true);
@@ -18,6 +26,17 @@ export const ChatList = () => {
 
   const closeCreateChatModal = () => {
     setIsCreateChatModalOpen(false);
+  };
+
+  const onSubmit = async (data: CreateChatDto) => {
+    try {
+      const result = await createChat(data).unwrap();
+      addToChatList(result);
+
+      toast.success("Chat created successfully");
+    } catch (error) {
+      toast.error("Failed to create chat");
+    }
   };
 
   return (
@@ -59,7 +78,10 @@ export const ChatList = () => {
         title="New Chat"
         onClose={closeCreateChatModal}
       >
-        <CreateChatForm onSuccessfulSubmit={closeCreateChatModal} />
+        <CreateChatForm
+          onSubmit={onSubmit}
+          closeModal={closeCreateChatModal}
+        />
       </Modal>
     </>
   );

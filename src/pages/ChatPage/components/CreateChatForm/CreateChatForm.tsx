@@ -1,20 +1,18 @@
 import { Controller, useForm } from "react-hook-form";
 import styles from "./styles.module.css";
 import { CreateChatDto } from "@/common/types/chat/create-chat.dto";
-import { useCreateChatMutation } from "@/lib/api/chat/chatApi";
 import { Input } from "@/common/components/Input/Input";
-import { toast } from "react-toastify";
 import { Button } from "@/common/components/Button/Button";
-import { useUpdateChats } from "@/common/hooks/useUpdateChats";
 
 type CreateChatFormProps = {
-  onSuccessfulSubmit: () => void;
+  onSubmit: (data: CreateChatDto) => void;
+  closeModal?: () => void;
 };
 
-export const CreateChatForm = ({ onSuccessfulSubmit }: CreateChatFormProps) => {
-  const [createChat] = useCreateChatMutation();
-  const { addToChatList } = useUpdateChats();
-
+export const CreateChatForm = ({
+  onSubmit,
+  closeModal,
+}: CreateChatFormProps) => {
   const {
     control,
     handleSubmit,
@@ -27,23 +25,17 @@ export const CreateChatForm = ({ onSuccessfulSubmit }: CreateChatFormProps) => {
     },
   });
 
-  const onSubmit = async (data: CreateChatDto) => {
-    try {
-      const result = await createChat(data).unwrap();
-      addToChatList(result);
+  const handleOnSubmit = async (data: CreateChatDto) => {
+    onSubmit?.(data);
+    reset();
 
-      toast.success("Chat created successfully");
-      reset();
-      onSuccessfulSubmit();
-    } catch (error) {
-      toast.error("Failed to create chat");
-    }
+    closeModal?.();
   };
 
   return (
     <form
       className={styles.form}
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleSubmit(handleOnSubmit)}
     >
       <label className={styles.label}>
         <span>First Name</span>
