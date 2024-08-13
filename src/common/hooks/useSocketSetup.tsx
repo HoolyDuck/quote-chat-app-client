@@ -12,6 +12,9 @@ const useSocketSetup = () => {
   const { newMessageToast } = useNewMessageToast();
 
   useEffect(() => {
+    // check if socket is connected
+    if (socket.connected) return;  
+
     socket.connect();
 
     socket.on("response", (data: Message) => {

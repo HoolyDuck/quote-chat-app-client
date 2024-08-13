@@ -8,6 +8,7 @@ export const useNewMessageToast = () => {
   const newMessageToast = ({ chat }: Message) => {
     toast.info(`New message from ${chat}`, {
       onClick: () => navigate(`/chat/${chat}`),
+      position: "bottom-right",
     });
   };
 
