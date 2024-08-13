@@ -11,7 +11,6 @@ import { ChatDisplay } from "@/pages/ChatDisplay/ChatDisplay.tsx";
 import { Navigate } from "react-router-dom";
 import { SelectChatDisplay } from "@/pages/ChatDisplay/components/SelectChatDisplay/SelectChatDisplay.tsx";
 import { PrivateRoute } from "@/common/components/PrivateRoute/PrivateRoute.tsx";
-import { SocketProvider } from "@/lib/socket/SocketProvider.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
