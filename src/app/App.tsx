@@ -1,4 +1,6 @@
+import { useSocketSetup } from "@/common/hooks/useSocketSetup";
 import { useGetProfileQuery } from "@/lib/api/auth/authApi";
+import { SocketProvider } from "@/lib/socket/SocketProvider";
 import { setUser } from "@/lib/store/slices/user.slice";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
@@ -16,12 +18,16 @@ function App() {
     }
   }, [data, dispatch]);
 
+  useSocketSetup();
+
   return (
     <>
       {
         //isLoading && <div>Loading...</div>
       }
-      <Outlet />
+      <SocketProvider>
+        <Outlet />
+      </SocketProvider>
       <ToastContainer />
     </>
   );
