@@ -3,7 +3,7 @@ import { User } from "../user/user.type";
 
 export type Message = {
   _id: string;
-  chat: string | Chat;
+  chat: Chat;
   content: string;
   sender?: string | User;
 };

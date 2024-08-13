@@ -7,13 +7,9 @@ export const useUpdateChats = () => {
 
   const addMessageToChat = (message: Message) => {
     dispatch(
-      chatApi.util.updateQueryData(
-        "getChat",
-        message.chat as string,
-        (draft) => {
-          draft?.messages.push(message);
-        }
-      )
+      chatApi.util.updateQueryData("getChat", message.chat._id, (draft) => {
+        draft?.messages.push(message);
+      })
     );
   };
 

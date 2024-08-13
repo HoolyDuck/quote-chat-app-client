@@ -6,8 +6,9 @@ export const useNewMessageToast = () => {
   const navigate = useNavigate();
 
   const newMessageToast = ({ chat }: Message) => {
-    toast.info(`New message from ${chat}`, {
-      onClick: () => navigate(`/chat/${chat}`),
+    const { firstName, lastName, _id } = chat;
+    toast.info(`New message from ${firstName} ${lastName}`, {
+      onClick: () => navigate(`/chat/${_id}`),
       position: "bottom-right",
     });
   };
