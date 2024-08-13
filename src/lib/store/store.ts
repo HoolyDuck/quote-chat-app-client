@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { userSlice } from "./slices/user.slice";
 import { apiSlice } from "../api/apiSlice";
+import { chatSearchSlice } from "./slices/chat-search.slice";
 
 const store = configureStore({
   reducer: {
     [userSlice.name]: userSlice.reducer,
+    [chatSearchSlice.name]: chatSearchSlice.reducer,
     [apiSlice.reducerPath]: apiSlice.reducer,
   },
 
