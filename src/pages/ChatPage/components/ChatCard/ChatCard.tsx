@@ -24,9 +24,11 @@ export const ChatCard: React.FC<ChatCardProps> = ({
         <h3 className={styles.name}>{name}</h3>
         <p className={styles.last_message}>{lastMessage}</p>
       </div>
-      <p className={styles.last_message_time}>
-        {new Date(lastMessageTime!).toDateString()}
-      </p>
+      {lastMessageTime && (
+        <p className={styles.last_message_time}>
+          {new Date(lastMessageTime).toDateString()}
+        </p>
+      )}
     </div>
   );
 };
