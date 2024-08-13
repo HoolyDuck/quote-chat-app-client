@@ -1,0 +1,33 @@
+.message_box {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.content {
+  word-wrap: break-word;
+  text-align: left;
+  display: flex;
+  gap: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  align-self: flex-start;
+  background-color: #282828;
+  color: #fff;
+  max-width: 60%;
+}
+
+.author .content {
+  align-self: flex-end;
+  background-color: #d1d1d1;
+  color: black;
+}
+
+.time {
+  font-size: 0.8rem;
+  color: #9e9e9e;
+}
+
+.author .time {
+  text-align: right;
+}

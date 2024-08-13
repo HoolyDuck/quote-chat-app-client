@@ -20,8 +20,16 @@
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 200px;
+  font-size: 0.8rem;
 }
 
 .last_message_time {
-    align-self: flex-start;
+  align-self: flex-start;
+  font-size: 0.8rem;
+}
+
+@media screen and (max-width: 1200px) {
+  .last_message_time {
+    display: none;
+  }
 }

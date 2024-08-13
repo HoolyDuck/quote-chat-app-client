@@ -6,4 +6,5 @@ export type Message = {
   chat: Chat;
   content: string;
   sender?: string | User;
+  createdAt: Date;
 };

@@ -45,7 +45,9 @@ export const ChatList = () => {
                 <ChatCard
                   name={`${chat.firstName} ${chat.lastName}`}
                   lastMessage={chat.messages[chat.messages.length - 1]?.content}
-                  lastMessageTime={new Date().toLocaleTimeString()}
+                  lastMessageTime={
+                    chat.messages[chat.messages.length - 1]?.createdAt
+                  }
                 />
               </NavLink>
             ))

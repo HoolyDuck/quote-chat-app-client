@@ -1,6 +1,6 @@
 import { Message } from "@/common/types/message/message.type";
 import styles from "./styles.module.css";
-import clsx from "clsx";
+import { MessageBox } from "../MessageBox/MessageBox";
 
 type MessageContainerProps = {
   messages: Message[];
@@ -15,15 +15,11 @@ export const MessageContainer = ({
     <div className={styles.reverse_wrapper}>
       <div className={styles.messages_container}>
         {messages.map((message) => (
-          <div
+          <MessageBox
             key={message._id}
-            className={clsx({
-              [styles.message]: true,
-              [styles.own_message]: message.sender === author,
-            })}
-          >
-            <p>{message.content}</p>
-          </div>
+            message={message}
+            author={author}
+          />
         ))}
       </div>
     </div>

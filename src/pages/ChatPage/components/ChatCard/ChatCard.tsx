@@ -1,12 +1,11 @@
 import { Avatar } from "@/common/components/Avatar/Avatar";
 import styles from "./styles.module.css";
 
-
 type ChatCardProps = {
   avatarSrc?: string;
   name?: string;
   lastMessage?: string;
-  lastMessageTime?: string;
+  lastMessageTime?: Date;
 };
 
 export const ChatCard: React.FC<ChatCardProps> = ({
@@ -25,7 +24,9 @@ export const ChatCard: React.FC<ChatCardProps> = ({
         <h3 className={styles.name}>{name}</h3>
         <p className={styles.last_message}>{lastMessage}</p>
       </div>
-      <p className={styles.last_message_time}>{lastMessageTime}</p>
+      <p className={styles.last_message_time}>
+        {new Date(lastMessageTime!).toDateString()}
+      </p>
     </div>
   );
 };
