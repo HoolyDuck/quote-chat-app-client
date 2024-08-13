@@ -4,7 +4,7 @@ import clsx from "clsx";
 
 type MessageBoxProps = {
   message: Message;
-  author: string;
+  author?: string;
 };
 
 export const MessageBox = ({ message, author }: MessageBoxProps) => {

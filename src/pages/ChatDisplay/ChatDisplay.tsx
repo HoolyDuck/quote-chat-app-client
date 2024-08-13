@@ -20,8 +20,8 @@ export const ChatDisplay = () => {
             lastName={data?.lastName}
           />
           <MessageContainer
-            messages={data?.messages!}
-            author={data?.author!}
+            messages={data?.messages}
+            author={data?.author}
           />
           <ChatInput />
         </>
