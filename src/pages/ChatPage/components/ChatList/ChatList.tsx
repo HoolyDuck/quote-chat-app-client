@@ -12,6 +12,7 @@ import { NavLink } from "react-router-dom";
 import { CreateChatDto } from "@/common/types/chat/create-chat.dto";
 import { toast } from "react-toastify";
 import { useAppSelector } from "@/lib/store/hooks";
+import { Loader } from "@/common/components/Loader/Loader";
 
 export const ChatList = () => {
   const { name } = useAppSelector((state) => state.chatSearch);
@@ -52,7 +53,7 @@ export const ChatList = () => {
 
         <div className={styles.chats_container}>
           {isLoading ? (
-            <p>Loading...</p>
+            <Loader />
           ) : (
             data?.chats?.map((chat) => (
               <NavLink
