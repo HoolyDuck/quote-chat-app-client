@@ -1,0 +1,7 @@
+.input_container {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: #e4e4e1;
+  border-top: 1px solid #d0d0d0;
+}

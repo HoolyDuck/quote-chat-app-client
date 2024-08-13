@@ -1,0 +1,40 @@
+
+.reverse_wrapper {
+  display: flex;
+  flex-direction: column-reverse;
+  overflow-y: auto;
+}
+
+.messages_container {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  flex-grow: 1;
+  gap: 0.5rem;
+
+  background-color: #f0f0f0;
+}
+
+.message {
+  display: flex;
+  gap: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: #e4e4e1;
+  border-radius: 5px;
+  align-self: flex-start;
+  background-color: #282828;
+  color: #fff;
+  max-width: 60%;
+
+}
+
+.own_message {
+  align-self: flex-end;
+  background-color: #e6e6e6;
+  color: #000;
+}
+
+.message p {
+    word-wrap: break-word;
+    text-align: left;
+}
