@@ -5,6 +5,7 @@ import { Button } from "@/common/components/Button/Button";
 import { Modal } from "@/common/components/Modal/Modal";
 import { useState } from "react";
 import { CreateChatForm } from "../CreateChatForm/CreateChatForm";
+import { NavLink } from "react-router-dom";
 
 export const ChatList = () => {
   const { data, isLoading } = useGetChatsQuery();
@@ -37,12 +38,16 @@ export const ChatList = () => {
             <p>Loading...</p>
           ) : (
             data?.chats?.map((chat) => (
-              <ChatCard
+              <NavLink
+                to={`/chat/${chat._id}`}
                 key={chat._id}
-                name={`${chat.firstName} ${chat.lastName}`}
-                lastMessage={chat.messages[0]}
-                lastMessageTime={new Date().toLocaleTimeString()}
-              />
+              >
+                <ChatCard
+                  name={`${chat.firstName} ${chat.lastName}`}
+                  lastMessage={chat.messages[chat.messages.length - 1]?.content}
+                  lastMessageTime={new Date().toLocaleTimeString()}
+                />
+              </NavLink>
             ))
           )}
         </div>
