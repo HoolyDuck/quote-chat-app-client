@@ -9,7 +9,7 @@ export const LoginPage = () => {
     <Container>
       <div className={styles.login_box}>
         <h1 className={styles.title}>Welcome!</h1>
-        <a href={googleAuthUrl}>
+        <a href={googleAuthUrl} className={styles.link}>
           <Button
             size="large"
             width="full"
