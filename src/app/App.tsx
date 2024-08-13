@@ -28,7 +28,7 @@ function App() {
       <SocketProvider>
         <Outlet />
       </SocketProvider>
-      <ToastContainer />
+      <ToastContainer closeOnClick />
     </>
   );
 }
