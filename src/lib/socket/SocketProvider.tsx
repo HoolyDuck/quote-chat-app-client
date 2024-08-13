@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef } from "react";
 import { socket, SocketContext } from ".";
 
 type SocketProviderProps = {
@@ -6,16 +6,13 @@ type SocketProviderProps = {
 };
 
 export const SocketProvider = ({ children }: SocketProviderProps) => {
-  const [chatSocket] = useState(() => {
-    return socket;
-  });
+  const chatSocket = useRef(socket);
 
   return (
-    <SocketContext.Provider value={chatSocket}>
+    <SocketContext.Provider value={chatSocket.current}>
       {children}
     </SocketContext.Provider>
   );
 };
 
 export { SocketContext };
-  
