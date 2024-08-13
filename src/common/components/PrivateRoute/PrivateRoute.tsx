@@ -1,5 +1,5 @@
 import { useGetProfileQuery } from "@/lib/api/auth/authApi";
-import { useEffect } from "react";
+import { useLayoutEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 type Properties = {
@@ -10,7 +10,7 @@ export const PrivateRoute = ({ children }: Properties) => {
   const { data } = useGetProfileQuery();
   const navigate = useNavigate();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!data) {
       navigate("/login");
     }
