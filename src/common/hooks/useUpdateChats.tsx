@@ -11,7 +11,18 @@ export const useUpdateChats = () => {
         draft?.messages.push(message);
       })
     );
+    dispatch(
+        chatApi.util.updateQueryData("getChats", undefined, (draft) => {
+          const chatIndex = draft?.chats.findIndex(
+            (chat) => chat._id === message.chat._id
+          );
+          if (chatIndex !== -1) {
+            draft?.chats[chatIndex].messages.push(message);
+          }
+        })
+      );
   };
+
 
   return { addMessageToChat };
 };

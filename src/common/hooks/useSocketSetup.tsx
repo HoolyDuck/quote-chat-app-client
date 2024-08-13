@@ -30,6 +30,6 @@ const useSocketSetup = () => {
   }, [socket]);
 
   return { socket };
-}; 
+};
 
 export { useSocketSetup };
