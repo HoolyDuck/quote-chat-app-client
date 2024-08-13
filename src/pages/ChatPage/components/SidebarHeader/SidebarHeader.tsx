@@ -8,10 +8,13 @@ import { resetUser } from "@/lib/store/slices/user.slice";
 import { useNavigate } from "react-router-dom";
 import { setName } from "@/lib/store/slices/chat-search.slice";
 import { useDebouncedCallback } from "use-debounce";
+import { useAutoSendMessages } from "@/common/hooks/useAutoSendMessages";
 export const SidebarHeader = () => {
   const { user } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
+  const { isAutoSendMessages, setIsAutoSendMessages } = useAutoSendMessages();
 
   const handleLogout = () => {
     dispatch(resetUser());
@@ -22,12 +25,25 @@ export const SidebarHeader = () => {
     navigate("/login");
   };
 
+  const toggleAutoSendMessages = () => {
+    setIsAutoSendMessages((prev) => !prev);
+  };
+
   const debouncedHandleChange = useDebouncedCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const name = e.target.value;
       dispatch(setName(name));
     },
     500
+  );
+
+  const autoSendMessagesButton = (
+    <Button
+      size="small"
+      onClick={toggleAutoSendMessages}
+    >
+      {isAutoSendMessages ? "Stop auto send" : "Auto send messages"}
+    </Button>
   );
 
   const logInOrOutButton = user ? (
@@ -55,7 +71,10 @@ export const SidebarHeader = () => {
           src={user?.avatar}
           alt="User avatar"
         />
-        {logInOrOutButton}
+        <div className={styles.buttons}>
+          {autoSendMessagesButton}
+          {logInOrOutButton}
+        </div>
       </div>
       <form>
         <Input
