@@ -27,7 +27,7 @@ const useSocketSetup = () => {
     return () => {
       socket.disconnect();
     };
-  }, [socket, addMessageToChat, newMessageToast]);
+  }, []);
 
   return { socket };
 };
