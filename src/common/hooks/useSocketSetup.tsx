@@ -1,6 +1,4 @@
-import { chatApi } from "@/lib/api/chat/chatApi";
 import { SocketContext } from "@/lib/socket/SocketProvider";
-import { useAppDispatch } from "@/lib/store/hooks";
 import { useContext, useEffect } from "react";
 import { Message } from "../types/message/message.type";
 import { useUpdateChats } from "./useUpdateChats";
@@ -13,7 +11,7 @@ const useSocketSetup = () => {
 
   useEffect(() => {
     // check if socket is connected
-    if (socket.connected) return;  
+    if (socket.connected) return;
 
     socket.connect();
 
@@ -30,6 +28,8 @@ const useSocketSetup = () => {
       socket.disconnect();
     };
   }, [socket]);
-};
+
+  return { socket };
+}; 
 
 export { useSocketSetup };
