@@ -1,9 +1,9 @@
-import { Button } from "@/common/components/Button/Button";
 import { Input } from "@/common/components/Input/Input";
 import { SocketContext } from "@/lib/socket/SocketProvider";
 import { useState, useContext } from "react";
 import styles from "./styles.module.css";
 import { useParams } from "react-router-dom";
+import { SendIcon } from "@/assets/icons/SendIcon";
 
 export const ChatInput = () => {
   const [message, setMessage] = useState("");
@@ -32,8 +32,12 @@ export const ChatInput = () => {
         placeholder="Type a message..."
         value={message}
         onChange={(e) => setMessage(e.target.value)}
+        rightIcon={<SendIcon />}
       />
-      <Button type="submit">Send</Button>
+      <button
+        type="submit"
+        className="visually-hidden"
+      />
     </form>
   );
 };
