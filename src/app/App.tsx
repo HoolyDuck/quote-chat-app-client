@@ -1,3 +1,5 @@
+import { Container } from "@/common/components/Container/Container";
+import { Loader } from "@/common/components/Loader/Loader";
 import { useSocketSetup } from "@/common/hooks/useSocketSetup";
 import { useGetProfileQuery } from "@/lib/api/auth/authApi";
 import { SocketProvider } from "@/lib/socket/SocketProvider";
@@ -9,7 +11,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function App() {
-  const { data } = useGetProfileQuery();
+  const { data, isLoading } = useGetProfileQuery();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -20,11 +22,16 @@ function App() {
 
   useSocketSetup();
 
+  if (isLoading) {
+    return (
+      <Container>
+        <Loader />
+      </Container>
+    );
+  }
+
   return (
     <>
-      {
-        //isLoading && <div>Loading...</div>
-      }
       <SocketProvider>
         <Outlet />
       </SocketProvider>

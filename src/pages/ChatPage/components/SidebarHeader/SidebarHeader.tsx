@@ -9,14 +9,17 @@ import { useNavigate } from "react-router-dom";
 import { setName } from "@/lib/store/slices/chat-search.slice";
 import { useDebouncedCallback } from "use-debounce";
 import { useAutoSendMessages } from "@/common/hooks/useAutoSendMessages";
+import { useLogOutMutation } from "@/lib/api/auth/authApi";
 export const SidebarHeader = () => {
   const { user } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const { isAutoSendMessages, setIsAutoSendMessages } = useAutoSendMessages();
+  const [logOut] = useLogOutMutation();
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    await logOut();
     dispatch(resetUser());
     navigate("/login");
   };
