@@ -6,7 +6,8 @@ import { Avatar } from "@/common/components/Avatar/Avatar";
 import { useAppDispatch, useAppSelector } from "@/lib/store/hooks";
 import { resetUser } from "@/lib/store/slices/user.slice";
 import { useNavigate } from "react-router-dom";
-
+import { setName } from "@/lib/store/slices/chat-search.slice";
+import { useDebouncedCallback } from "use-debounce";
 export const SidebarHeader = () => {
   const { user } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
@@ -20,6 +21,14 @@ export const SidebarHeader = () => {
   const handleLogin = () => {
     navigate("/login");
   };
+
+  const debouncedHandleChange = useDebouncedCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const name = e.target.value;
+      dispatch(setName(name));
+    },
+    500
+  );
 
   const logInOrOutButton = user ? (
     <Button
@@ -48,10 +57,17 @@ export const SidebarHeader = () => {
         />
         {logInOrOutButton}
       </div>
-      <Input
-        placeholder="Search for chats"
-        leftIcon={<SearchIcon />}
-      />
+      <form>
+        <Input
+          placeholder="Search for chats"
+          leftIcon={<SearchIcon />}
+          onChange={debouncedHandleChange}
+        />
+        <button
+          className="visually-hidden"
+          type="submit"
+        />
+      </form>
     </div>
   );
 };

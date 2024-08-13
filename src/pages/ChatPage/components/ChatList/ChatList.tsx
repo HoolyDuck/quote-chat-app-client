@@ -10,15 +10,15 @@ import { useState } from "react";
 import { CreateChatForm } from "../CreateChatForm/CreateChatForm";
 import { NavLink } from "react-router-dom";
 import { CreateChatDto } from "@/common/types/chat/create-chat.dto";
-import { useUpdateChats } from "@/common/hooks/useUpdateChats";
 import { toast } from "react-toastify";
+import { useAppSelector } from "@/lib/store/hooks";
 
 export const ChatList = () => {
-  const { data, isLoading } = useGetChatsQuery();
+  const { name } = useAppSelector((state) => state.chatSearch);
+  const { data, isLoading } = useGetChatsQuery({ name });
 
   const [isCreateChatModalOpen, setIsCreateChatModalOpen] = useState(false);
   const [createChat] = useCreateChatMutation();
-  const { addToChatList } = useUpdateChats();
 
   const openCreateChatModal = () => {
     setIsCreateChatModalOpen(true);
@@ -30,9 +30,7 @@ export const ChatList = () => {
 
   const onSubmit = async (data: CreateChatDto) => {
     try {
-      const result = await createChat(data).unwrap();
-      addToChatList(result);
-
+      await createChat(data).unwrap();
       toast.success("Chat created successfully");
     } catch (error) {
       toast.error("Failed to create chat");

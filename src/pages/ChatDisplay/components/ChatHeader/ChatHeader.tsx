@@ -7,7 +7,6 @@ import {
   useDeleteChatMutation,
   useUpdateChatMutation,
 } from "@/lib/api/chat/chatApi";
-import { useUpdateChats } from "@/common/hooks/useUpdateChats";
 import { useState } from "react";
 import { Modal } from "@/common/components/Modal/Modal";
 import { CreateChatDto } from "@/common/types/chat/create-chat.dto";
@@ -27,13 +26,11 @@ export const ChatHeader = ({ firstName, lastName }: ChatHeaderProps) => {
 
   const [deleteChat] = useDeleteChatMutation();
   const [updateChat] = useUpdateChatMutation();
-  const { deleteFromChatList, updateChatDetails } = useUpdateChats();
 
   const handleDeleteChat = async () => {
     if (!chatId) return;
 
     await deleteChat(chatId);
-    deleteFromChatList(chatId);
 
     navigate("/chat");
   };
@@ -41,8 +38,7 @@ export const ChatHeader = ({ firstName, lastName }: ChatHeaderProps) => {
   const handleUpdateChat = async (data: CreateChatDto) => {
     if (!chatId) return;
 
-    const result = await updateChat({ id: chatId, ...data }).unwrap();
-    updateChatDetails(result);
+    await updateChat({ id: chatId, ...data }).unwrap();
   };
 
   const ConfirmDeleteModal = () => {
